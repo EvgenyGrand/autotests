@@ -10,7 +10,7 @@ public class Main {
         driver.get("https://google.ru");
         WebElement button = driver.findElement(By.xpath("/html/body/div[1]/div[3]/form/div[1]/div[1]/div[3]/center/input[2]"));
         button.click();
-        if(driver.findElements(By.xpath("//*[@id=\"searchinput\"]")).size() != 0){
+        if((driver.findElements(By.xpath("//*[@id=\"searchinput\"]")).size() != 0) &&(driver.getCurrentUrl().equals("https://www.google.com/doodles"))){
             System.out.println("Success");
         }else{
             System.out.println("Failed");
