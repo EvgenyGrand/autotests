@@ -29,6 +29,7 @@ public class Main {
             if (!tab.equals(currentTab)) {
                 driver.switchTo().window(tab);
                 if ((driver.findElements(By.xpath("//*[@id=\"p-logo\"]/a")).size() != 0)
+                        && (driver.findElements(By.xpath("//*[@id=\"mw-content-text\"]/div[1]/div[4]/div/a/img")).size() != 0)
                         && (driver.getCurrentUrl().equals("https://ru.wikipedia.org/wiki/Java"))) {
                     System.out.println("Success");
                 } else {
