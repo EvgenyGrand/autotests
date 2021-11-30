@@ -18,13 +18,25 @@ public class Main {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         driver.manage().window().maximize();
         driver.get("https://www.google.ru/");
-        WebElement input= driver.findElement(By.xpath("/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input"));
+        WebElement input = driver.findElement(By.xpath("/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input"));
         input.sendKeys("Java", Keys.ENTER);
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("scroll(0,400);");
         WebElement hyper = driver.findElement(By.xpath("//*[@id=\"rso\"]/div[2]/div/div/div[1]/a/h3"));
         hyper.click();
+        String currentTab = driver.getWindowHandle();
+        for (String tab : driver.getWindowHandles()) {
+            if (!tab.equals(currentTab)) {
+                driver.switchTo().window(tab);
+                if ((driver.findElements(By.xpath("//*[@id=\"p-logo\"]/a")).size() != 0)
+                        && (driver.getCurrentUrl().equals("https://ru.wikipedia.org/wiki/Java"))) {
+                    System.out.println("Success");
+                } else {
+                    System.out.println("Failed");
 
-        }
+                }
 
+            }
         }
+    }
+}
