@@ -28,16 +28,11 @@ public class Main {
             js.executeScript("scroll(0,700);");
             WebElement iphone = driver.findElement(By.xpath("//*[@id=\"s0-27_1-9-0-1[0]-0-0-12-list\"]/li[1]/a/div[2]/div[1]"));
             iphone.click();
-            
-
-
-
-
-
-
 
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            driver.quit();
         }
 
     }
