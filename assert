@@ -1,0 +1,42 @@
+import org.junit.Assert;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.Select;
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.time.Duration;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        try {
+            driver.get("https://ru.ebay.com/");
+            Actions action=new Actions(driver);
+            WebElement dropdown = driver.findElement(By.xpath("//*[@id=\"mainContent\"]/div[1]/ul/li[3]/a"));
+            action.moveToElement(dropdown).perform();
+            WebElement click = driver.findElement(By.xpath("//*[@id=\"mainContent\"]/div[1]/ul/li[3]/div[2]/div[1]/nav[1]/ul/li[2]/a"));
+            click.click();
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("scroll(0,700);");
+            WebElement iphone = driver.findElement(By.xpath("//*[@id=\"s0-27_1-9-0-1[0]-0-0-12-list\"]/li[1]/a/div[2]/div[1]"));
+            iphone.click();
+            WebElement telef=driver.findElement(By.xpath("//*[@id=\"vi-img-overlay--trans\"]"));
+            String url= driver.getCurrentUrl();
+            Assert.assertEquals(true, telef.isDisplayed());
+            Assert.assertEquals(url,"https://www.ebay.com/itm/332684193207?var=543218400687");
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+    }
+}
