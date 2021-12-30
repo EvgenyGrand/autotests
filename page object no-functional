@@ -1,0 +1,70 @@
+Main
+import org.junit.Assert;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.Select;
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.security.Key;
+import java.time.Duration;
+import java.util.List;
+
+public class Main {
+
+    static WebDriver driver;
+    public static void main(String[] args) {
+
+
+        System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
+       WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        driver.manage().window().maximize();
+        try {
+            driver.get("http://qa.jtalks.org/jcommune/");
+            Thread.sleep(5000);
+            LoginPage lp = new LoginPage();
+            lp.login("test-user", "test-user");
+            WebElement lpar = driver.findElement(By.xpath("//*[@id=\"user-dropdown-menu-link\"]/text()"));
+            Assert.assertEquals(true,lpar.isDisplayed());
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+
+
+Login page 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class LoginPage extends Main {
+
+
+    WebDriver driver=Main.driver;
+
+    WebElement buttoncred = driver.findElement(By.xpath("//*[@id=\"signin\"]"));
+    WebElement logininput = driver.findElement(By.xpath("//*[@id=\"userName\"]"));
+    WebElement passwordinput = driver.findElement(By.xpath("//*[@id=\"password\"]"));
+    WebElement buttonenter = driver.findElement(By.xpath("//*[@id=\"signin-submit-button\"]"));
+
+    public void login(String login, String password){
+      buttoncred.click();
+      logininput.clear();
+      passwordinput.clear();
+      logininput.sendKeys(login);
+      passwordinput.sendKeys(password);
+      buttonenter.click();
+
+
+    }
+}
